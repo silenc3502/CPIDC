@@ -35,6 +35,19 @@ int main()
   PID pid;
   // TODO: Initialize the pid variable.
 
+  //pid.Init(3, 0.0, 2.4); Big Overshoot
+  //pid.Init(2.7, 0.0, 3.3); Still Big
+  //pid.Init(2.5, 0.0, 7.7); Now it's work. However big vibration.
+
+  //pid.Init(4.5, 1.5, 8.8); It makes some slow response.
+  //pid.Init(0.45, 0.15, 0.88); Still it makes slow response.
+  //pid.Init(7.7, 1.5, 10.0); Still slow
+  //pid.Init(15.0, 1.5, 10.0); Still slow(need to decrease integral error!)
+  //pid.Init(15.0, 0.75, 10.0); Bad Integral Erro!
+  //pid.Init(15.0, 0.37, 10.0); Still ...
+  pid.Init(10.0, 0.2, 15.0); Also good!
+  //pid.Init(10.0, 0.3, 22.0); So many frequency element!
+
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -50,13 +63,15 @@ int main()
           double cte = std::stod(j[1]["cte"].get<std::string>());
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
-          double steer_value;
+          double steer_value = 0;
           /*
           * TODO: Calcuate steering value here, remember the steering value is
           * [-1, 1].
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+          pid.UpdateError(cte);
+          steer_value -= pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;

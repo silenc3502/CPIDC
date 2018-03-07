@@ -23,8 +23,22 @@ void PID::Init(double Kp, double Ki, double Kd) {
 }
 
 void PID::UpdateError(double cte) {
+	p_error = cte;
+	i_error += cte;
+	d_error = cte - prev_cross_track_error;
+	prev_cross_track_error = cte;
+
+	error_sum += cte;
+	counter++;
+
+	if(cte > max_error)
+		max_error = cte;
+	if(cte < min_error)
+		min_error = cte;
 }
 
-double PID::TotalError() {
+double PID::TotalError(void)
+{
+	return p_error * Kp + i_error * Ki + d_error * Kd;
 }
 

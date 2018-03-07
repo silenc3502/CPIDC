@@ -18,6 +18,15 @@ public:
   double Kd;
 
   /*
+  * User Add
+  */
+  double prev_cross_track_error;
+  double error_sum;
+  double max_error;
+  double min_error;
+  long counter;
+
+  /*
   * Constructor
   */
   PID();
