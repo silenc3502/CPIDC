@@ -58,7 +58,7 @@ int main()
   /* Speed Control Part */
   //pid_t.Init(0.5, 0.2, 0.0);	// Back moving fast
   //pid_t.Init(0.1, 0.07, 0.0);	// Back moving
-  pid_t.Init(0.01, 0.007, 0.0);
+  //pid_t.Init(0.01, 0.007, 0.0);
   // This is PI Controller for Throttle.
 
   h.onMessage([&pid_s, &pid_t](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -77,7 +77,7 @@ int main()
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value = 0;
-          //double throttle_value = 0;
+          double throttle_value = 0;
           /*
           * TODO: Calcuate steering value here, remember the steering value is
           * [-1, 1].
@@ -87,8 +87,8 @@ int main()
           pid_s.UpdateError(cte);
           steer_value -= pid_s.TotalError();
 
-          //pid_t.UpdateError(fabs(cte));
-          //throttle_value = 1.0 - (pid_t.Kp * pid_t.p_error + pid_t.Ki * pid_t.i_error);
+          pid_t.UpdateError(fabs(cte));
+          throttle_value = (pid_t.Kp * pid_t.p_error + pid_t.Ki * pid_t.i_error);
           
           
           // DEBUG
@@ -96,8 +96,9 @@ int main()
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.4;
-          //msgJson["throttle"] = 0.5;
+          //msgJson["throttle"] = 0.4;
+          msgJson["throttle"] = 0.45;
+          //msgJson["throttle"] = throttle_value;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
