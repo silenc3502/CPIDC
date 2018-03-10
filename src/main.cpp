@@ -53,6 +53,7 @@ int main()
   //pid.Init(13.0, 0.0, 300.0);
   //pid.Init(13.0, 5.0, 300.0);
   pid.Init(13.0, 0.02, 300.0); // Also good!
+  //pid.Init(13.0, 2.0, 300.0); // Also good!
   //pid_s.Init(10.0, 0.3, 22.0);	//So many frequency element!
   //pid_s.Init(10.0, 0.3, 33.0);	//So many frequency element!
   //pid_s.Init(33.0, 0.8, 10000.0);	//So many frequency element!
@@ -91,7 +92,7 @@ int main()
 
           /* I implement it based on lecture 12 of Udacity Lesson 17. */
           pid.UpdateError(cte);
-          steer_value -= pid.TotalError();
+          steer_value = -pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
@@ -100,6 +101,7 @@ int main()
           msgJson["steering_angle"] = steer_value;
           //msgJson["throttle"] = 0.4;
           msgJson["throttle"] = 0.45;
+          //msgJson["throttle"] = 0.55;
           //msgJson["throttle"] = throttle_value;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
