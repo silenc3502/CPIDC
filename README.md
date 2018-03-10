@@ -53,21 +53,21 @@ D Controller is very weak when it has noise.
 So, when we design electric system then need to design LPF(Low Pass Filter).  
 It's the reason that we need stochastic calculus.  
 
-
+![d_control](./images/Kd.gif)
 
 Below image represents the I gain.  
 It's good to adjust steady-state error.  
 However it makes increase of overshoot and slow to go our goal.  
 But, we need to use it to make precision control(reduce steady-state error).  
 
-
+![i_control](./images/Ki.gif)
 
 Below image represents the PID Controller.  
 It's go to the control goal fast(Kp).
 And there are no big vibration(Kd).
 And it has no big steady-state error(Ki).
 
-
+![pid_control](./images/pid.gif)
 
 ## How to Setting Steering Hyperparamters
 
