@@ -37,6 +37,38 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
+## Explicit Section
+
+I'll write simulation results of P gain(Kp), I gain(Ki), D gain(Kd) at here.  
+Below image represents the P Controller.  
+It has big vibration(Overshoot increase) and can't convergence.  
+It's just divergence(not a vector divergence).  
+
+![p_control](./images/Kp.gif)
+
+Below image represents the D gain.  
+It's good to catch vibration(Overshoot decrease).  
+And it has another problem that is the noise.  
+D Controller is very weak when it has noise.  
+So, when we design electric system then need to design LPF(Low Pass Filter).  
+It's the reason that we need stochastic calculus.  
+
+
+
+Below image represents the I gain.  
+It's good to adjust steady-state error.  
+However it makes increase of overshoot and slow to go our goal.  
+But, we need to use it to make precision control(reduce steady-state error).  
+
+
+
+Below image represents the PID Controller.  
+It's go to the control goal fast(Kp).
+And there are no big vibration(Kd).
+And it has no big steady-state error(Ki).
+
+
+
 ## How to Setting Steering Hyperparamters
 
 We know P coefficient can makes to go goal fast.

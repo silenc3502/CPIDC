@@ -49,6 +49,9 @@ int main()
   //pid.Init(15.0, 0.37, 10.0); Still ...
 
   // This is PID Controller for steering.
+  //pid.Init(13.0, 0.0, 0.0);
+  //pid.Init(13.0, 0.0, 300.0);
+  //pid.Init(13.0, 5.0, 300.0);
   pid.Init(13.0, 0.02, 300.0); // Also good!
   //pid_s.Init(10.0, 0.3, 22.0);	//So many frequency element!
   //pid_s.Init(10.0, 0.3, 33.0);	//So many frequency element!
