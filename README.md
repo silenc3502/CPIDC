@@ -67,7 +67,7 @@ It's go to the control goal fast(Kp).
 And there are no big vibration(Kd).
 And it has no big steady-state error(Ki).
 
-![pid_control](./images/pid2.gif)
+![pid_control](./images/pid3.gif)
 
 ## How to Setting Steering Hyperparamters
 
